@@ -54,7 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // YOUR CODE STARTS HERE
     this.planetAndCharactersResults$ = forkJoin({
       characters : this.mockDataService.getCharacters(),
-      planets: this.mockDataService.getPlatents()
+      planets: this.mockDataService.getPlanets()
     }).pipe(
         map(({characters, planets}) => {
           return [
