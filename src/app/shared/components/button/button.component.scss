@@ -1,0 +1,39 @@
+.app-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 13px 36px;
+    gap: 10px;
+    background: #007298;
+    border-radius: 4px;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+        background: #016486;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 114, 152, 0.3);
+    }
+
+    &:active {
+        transform: translateY(1px);
+        background: #015572;
+    }
+
+    &__single-icon {
+        padding: 13px;
+    }
+
+    fa-icon {
+        font-size: 16px;
+    }
+}

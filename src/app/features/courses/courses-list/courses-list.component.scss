@@ -1,0 +1,10 @@
+.courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+
+  app-course-card {
+    width: 100%;
+  }
+}

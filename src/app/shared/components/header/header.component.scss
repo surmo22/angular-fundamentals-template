@@ -1,0 +1,27 @@
+@import "src/app/shared/styles/variables/colors";
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 30px;
+    background-color: $color-white;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        img {
+            height: 40px;
+            width: auto;
+        }
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+}

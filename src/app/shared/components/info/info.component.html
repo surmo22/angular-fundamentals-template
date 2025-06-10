@@ -1,0 +1,8 @@
+<div class="app-info">
+  <!-- Replace ::text:: with your code -->
+    <div class="app-info__header">{{ title }}</div>
+    <div class="app-info__title" *ngIf="text">{{ text }}</div>
+    <div class="app-info__content">
+        <ng-content></ng-content>
+    </div>
+</div>

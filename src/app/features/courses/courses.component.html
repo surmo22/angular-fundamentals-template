@@ -1,0 +1,7 @@
+<app-courses-list
+        [courses]="courses"
+        [editable]="isEditable"
+        (showCourse)="onShowCourse($event)"
+        (editCourse)="onEditCourse($event)"
+        (deleteCourse)="onDeleteCourse($event)"
+></app-courses-list>

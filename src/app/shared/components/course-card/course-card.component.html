@@ -1,0 +1,26 @@
+<div class="course-card">
+    <div class="course-card__description">
+      <div class="course-card__description-title">{{title}}</div>
+      <div class="course-card__description-text">{{description}}</div>
+    </div>
+    <div class="course-card__info">
+        <div class="course-card__info-text">
+            <div>
+              <b>Authors: </b>
+                <span>{{ authors.join(', ') }}</span>
+            </div>
+            <div><b>Duration: </b><span class="course-card__duration">{{duration}}</span></div>
+            <div><b>Created: </b><span class="course-card__date">{{creationDate}}</span></div>
+        </div>
+        <div class="course-card__info-actions">
+            <app-button
+                    (click)="onShowClick()"
+                    buttonText="Show course">
+            </app-button>
+
+            <div class="course-card__buttons">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>
