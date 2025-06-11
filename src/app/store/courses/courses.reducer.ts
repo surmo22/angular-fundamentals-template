@@ -10,6 +10,7 @@ export const initialState: CoursesState = {
     // Add your code here
 };
 
+// @ts-ignore
 export const coursesReducer; // Add your code here
 
 export const reducer = (state: CoursesState, action: Action): CoursesState => coursesReducer(state, action);
