@@ -71,7 +71,7 @@
 
                             <div *ngFor="let auth of getAuthors().controls; index as i" [formGroupName]="i" class="authors">
                                 <div class="author">
-                                    <div>{{auth.value.author}}</div>
+                                    <div>{{auth.value.name}}</div>
                                     <div class="btns">
                                         <app-button [iconName]="'plus'" (buttonClick)="addToCourseAuthors(i)"></app-button>
                                         <app-button [iconName]="'trash-can'" (buttonClick)="deleteAuthor(i)"></app-button>

@@ -47,7 +47,7 @@ export class CourseFormComponent implements OnInit {
     } else {
       this.getAuthors().push(
           this.fb.group({
-            author: [this.courseForm.controls["author"].value],
+            name: [this.courseForm.controls["author"].value],
             id: [crypto.randomUUID()],
           })
       );
@@ -60,7 +60,7 @@ export class CourseFormComponent implements OnInit {
     const author = this.getAuthors().at(id);
     if (author) {
       this.getCourseAuthors().push(this.fb.group({
-        author: author.get('author')?.value,
+        author: author.get('name')?.value,
         id: author.get('id')?.value
       }));
       this.getAuthors().removeAt(id);
