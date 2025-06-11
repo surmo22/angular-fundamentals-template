@@ -1,9 +1,26 @@
 @import 'src/app/shared/styles/styles.scss';
 
+$color-red: #FF0000;
+$color-gray: #CfCfCf;
+
 .login-form {
   width: 260px;
   margin-top: 36px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+button {
+  display: none;
+}
+
+form.ng-submitted input.ng-invalid,
+input.ng-touched.ng-invalid {
+  border: 2px solid $color-red;
+}
+
+input.ng-untouched,
+input.ng-pristine {
+  border: 1px solid $color-gray;
 }

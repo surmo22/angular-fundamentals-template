@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -8,5 +8,19 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginFormComponent {
   @ViewChild("loginForm") public loginForm!: NgForm;
-  //Use the names `email` and `password` for form controls.
+  formFields = {
+    email: 'email',
+    password: 'password'
+  }
+
+  emailControl: string = "";
+  passwordControl: string = "";
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.loginForm.reset();
+    }
+
+    console.log(this.loginForm.value);
+  }
 }

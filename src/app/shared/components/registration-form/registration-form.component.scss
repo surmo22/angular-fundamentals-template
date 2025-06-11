@@ -7,3 +7,17 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+button{
+  display: none;
+}
+
+form.ng-submitted input.ng-invalid,
+input.ng-touched.ng-invalid {
+  border: 2px solid $color-red;
+}
+
+input.ng-untouched,
+input.ng-pristine {
+  border: 1px solid $color-gray;
+}

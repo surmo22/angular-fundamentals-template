@@ -6,19 +6,44 @@
         <div class="form__control">
           <label for="email">Email</label>
           <!--Use the name `email` for the form control.-->
-          <input type="text" id="email" placeholder="Input text"/>
-          <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+          <input type="text"
+                 id="email"
+                 emailValidator
+                 name="email"
+                 required
+                 placeholder="Input text"
+                 #email = "ngModel"
+                 [(ngModel)]="emailControl"/>
+          <span *ngIf="(loginForm.submitted || email.touched) && email.invalid"
+                  id="emailErrorMessage" class="text-danger">
+              <span *ngIf="email.errors?.['required']">
+                  Email is required.
+              </span>
+              <span *ngIf="email.errors?.['invalidEmail']">
+                  Email is not valid
+              </span>
+          </span>
         </div>
         <div class="form__control">
           <label for="password">Password</label>
-          <!--Use the name `password` for the form control.-->
-          <input type="password" id="password" placeholder="Input text"/>
-          <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+          <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                  #password="ngModel"
+                  [(ngModel)]="passwordControl"
+                  placeholder="Input text"/>
+          <span
+                  id="passwordErrorMessage"
+                  *ngIf="password.errors?.['required'] && (loginForm.submitted || password.touched)"
+                  class="text-danger">Password is required.
+          </span>
         </div>
       </div>
       <div>
         <div class="form__action">
-          <app-button></app-button>
+          <app-button buttonText="LOGIN" (buttonClick)="onSubmit()"></app-button>
         </div>
         <div class="form__text">
           If you don't have an account you may <strong>Registration</strong>

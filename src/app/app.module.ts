@@ -9,6 +9,7 @@ import { AuthorizedGuard } from '@app/auth/guards/authorized.guard';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { CoursesModule } from "@features/courses/courses.module";
+import {PasswordToggleDirective} from "@shared/directives/password.directive";
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
@@ -17,6 +18,7 @@ import { CoursesModule } from "@features/courses/courses.module";
     SharedModule,
     FontAwesomeModule,
     CoursesModule,
+      PasswordToggleDirective
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
   bootstrap: [AppComponent],

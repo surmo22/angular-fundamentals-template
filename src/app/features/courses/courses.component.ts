@@ -8,6 +8,10 @@ import {mockedCoursesList} from "@shared/mocks/mock";
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
+  filterSearch($event: string) {
+    console.log('Filter search:', $event);
+    return;
+  }
   courses: Course[] = [];
   isEditable = true;
 

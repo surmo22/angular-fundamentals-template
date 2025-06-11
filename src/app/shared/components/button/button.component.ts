@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import {fas, IconName} from '@fortawesome/free-solid-svg-icons';
 
@@ -10,8 +10,13 @@ import {fas, IconName} from '@fortawesome/free-solid-svg-icons';
 export class ButtonComponent {
   @Input() buttonText?: string;
   @Input() iconName?: IconName;
+  @Output() buttonClick = new EventEmitter<void>();
 
   constructor(library: FaIconLibrary) {
     library.addIconPacks(fas);
+  }
+
+  onCLick() : void{
+    this.buttonClick.emit();
   }
 }
