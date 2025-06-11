@@ -7,6 +7,7 @@ import {
 } from "@angular/forms";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import {mockedAuthorsList} from "@shared/mocks/mock";
 
 @Component({
   selector: "app-course-form",
@@ -16,13 +17,14 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 export class CourseFormComponent implements OnInit {
   constructor(public fb: FormBuilder, public library: FaIconLibrary) {
     library.addIconPacks(fas);
+
   }
 
   courseForm: FormGroup = this.fb.group({
     title: ["", [Validators.required, Validators.minLength(2)]],
     description: ["", [Validators.required, Validators.minLength(2)]],
     author: ["", [Validators.pattern("^[A-Za-z0-9]+$"), Validators.minLength(2)]],
-    authors: this.fb.array([]),
+    authors: this.fb.array(mockedAuthorsList),
     courseAuthors: this.fb.array([]),
     duration: ["", [Validators.required, Validators.min(0)]],
   });
@@ -56,8 +58,13 @@ export class CourseFormComponent implements OnInit {
 
   protected addToCourseAuthors(id: number) {
     const author = this.getAuthors().at(id);
-    this.getCourseAuthors().push(author);
-    this.getAuthors().removeAt(id);
+    if (author) {
+      this.getCourseAuthors().push(this.fb.group({
+        author: author.get('author')?.value,
+        id: author.get('id')?.value
+      }));
+      this.getAuthors().removeAt(id);
+    }
   }
 
   protected removeFromCourseAuthors(id: number) {
