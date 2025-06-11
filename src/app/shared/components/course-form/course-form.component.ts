@@ -18,21 +18,17 @@ export class CourseFormComponent implements OnInit {
     library.addIconPacks(fas);
   }
 
-  courseForm!: FormGroup;
+  courseForm: FormGroup = this.fb.group({
+    title: ["", [Validators.required, Validators.minLength(2)]],
+    description: ["", [Validators.required, Validators.minLength(2)]],
+    author: ["", [Validators.pattern("^[A-Za-z0-9]+$"), Validators.minLength(2)]],
+    authors: this.fb.array([]),
+    courseAuthors: this.fb.array([]),
+    duration: ["", [Validators.required, Validators.min(0)]],
+  });
   protected submitted: boolean = false;
 
   ngOnInit(): void {
-    this.courseForm = this.fb.group({
-      title: ["", [Validators.required, Validators.minLength(2)]],
-      description: ["", [Validators.required, Validators.minLength(2)]],
-      author: [
-        "",
-        [Validators.pattern("^[A-Za-z0-9]+$"), Validators.minLength(2)],
-      ],
-      authors: this.fb.array([]),
-      courseAuthors: this.fb.array([]),
-      duration: ["", [Validators.required, Validators.min(0)]],
-    });
   }
 
   protected getAuthors(): FormArray {
