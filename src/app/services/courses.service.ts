@@ -11,7 +11,9 @@ import {Author} from "@shared/models/author.model";
 export class CoursesService {
     constructor(private http: HttpClient) {}
     getAll(): Observable<ApiResponse<Course[]>> {
-        return this.http.get<ApiResponse<Course[]>>("/courses/all");
+        const observable = this.http.get<ApiResponse<Course[]>>("/courses/all");
+        observable.subscribe()
+        return observable;
     }
 
     createCourse(course: Course): Observable<ApiResponse<Course>> { // replace 'any' with the required interface
