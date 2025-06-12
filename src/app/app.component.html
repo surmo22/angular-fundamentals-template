@@ -1,27 +1,31 @@
-<app-header>
-    <app-button buttonText="Login"></app-button>
+<app-header *ngIf='isLoggedIn'>
+    <span> {{ userName }} </span>
+    <app-button buttonText="LOGOUT" (buttonClick)="logout()" routerLink=""></app-button>
+</app-header>
+<app-header *ngIf='!isLoggedIn'>
+    <app-button buttonText="LOGIN" routerLink="/login"></app-button>
 </app-header>
 <div class="app-root">
-  <!-- Search component -->
-  <!--<app-search></app-search>-->
+    <!-- Search component -->
+    <!--<app-search></app-search>-->
 
-  <!-- Info component -->
-  <!--<app-info title="Your list is empty" text="Add course to your list">
-      <app-button buttonText="Add Course"></app-button>
-  </app-info>-->
+    <!-- Info component -->
+    <!--<app-info title="Your list is empty" text="Add course to your list">
+    <app-button buttonText="Add Course"></app-button>
+    </app-info>-->
 
-  <!-- Course Card component -->
-  <!--<app-courses></app-courses>-->
+    <!-- Course Card component -->
+    <!-- <app-courses></app-courses>-->
+    <router-outlet></router-outlet>
+    <!-- Login Form component -->
+    <!--<app-login-form></app-login-form>-->
 
-  <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
+    <!-- Login Form component -->
+    <!--<app-registration-form></app-registration-form>-->
 
-  <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
+    <!-- Login Form component -->
+    <!--<app-course-form></app-course-form>-->
 
-  <!-- Login Form component -->
-  <app-course-form></app-course-form>
-
-  <!-- Modal component -->
-  <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
+    <!-- Modal component -->
+    <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
 </div>

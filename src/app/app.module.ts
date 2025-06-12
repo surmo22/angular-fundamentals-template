@@ -10,17 +10,36 @@ import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { CoursesModule } from "@features/courses/courses.module";
 import {PasswordToggleDirective} from "@shared/directives/password.directive";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {ApiBaseUrlInterceptor} from "@app/auth/interceptors/api-base-url-interceptor.service";
+import {TokenInterceptor} from "@app/auth/interceptors/token.interceptor";
+import {RouterLink, RouterModule} from "@angular/router";
+import {AppRoutingModule} from "@app/app-routing.module";
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     SharedModule,
+    HttpClientModule,
     FontAwesomeModule,
     CoursesModule,
-      PasswordToggleDirective
+    PasswordToggleDirective,
+    RouterLink
   ],
-  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
+  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiBaseUrlInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -2,14 +2,18 @@
 
 .registration-form {
   width: 260px;
-  margin-top: 36px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
+
 
 button{
   display: none;
+}
+
+app-button .app-button{
+  width: 100%;
 }
 
 form.ng-submitted input.ng-invalid,

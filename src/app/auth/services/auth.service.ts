@@ -1,30 +1,70 @@
 import { Injectable } from '@angular/core';
+import {BehaviorSubject, map} from "rxjs";
+import {SessionStorageService} from "@app/auth/services/session-storage.service";
+import {HttpClient} from "@angular/common/http";
+import {ApiResponse} from "@shared/models/api-response";
+import {User} from "@shared/models/user.model";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthService {
-    login(user: any) { // replace 'any' with the required interface
-        // Add your code here
+    private isAuthorized$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public isAuthorized$ = this.isAuthorized$$.asObservable();
+
+    constructor(
+        private http: HttpClient,
+        private sessionStorage: SessionStorageService,
+    ){
+        const token = this.sessionStorage.getToken();
+        this.isAuthorized$$.next(!!token);
+    }
+
+    login(user: User) { // replace 'any' with the required interface
+        return this.http.post<ApiResponse<string>>("/login", user)
+            .pipe(
+                map((response) => {
+                    if (response?.successful && response.result){
+                        this.sessionStorage.setToken(response.result);
+                        this.isAuthorized$$.next(true);
+                        this.isAuthorised = true;
+                    }
+
+                    return response;
+                })
+            );
     }
 
     logout() {
-        // Add your code here
+        this.http.delete<void>("/logout").subscribe({
+            next: () => {
+                this.sessionStorage.deleteToken();
+                this.isAuthorized$$.next(false);
+                this.isAuthorised = false;
+            }
+        });
     }
 
-    register(user: any) { // replace 'any' with the required interface
-        // Add your code here
+    register(user: User) { // replace 'any' with the required interface
+        return this.http.post<ApiResponse<string>>("/register", user)
+            .pipe(map((response)=>{
+                if(response.successful){
+                    console.log(response);
+                }
+
+                return response;
+            }))
     }
 
     get isAuthorised() {
-        // Add your code here. Get isAuthorized$$ value
+        return this.isAuthorized$$.value;
     }
 
     set isAuthorised(value: boolean) {
-        // Add your code here. Change isAuthorized$$ value
+        this.isAuthorized$$.next(value);
     }
 
     getLoginUrl() {
-        // Add your code here
+        return "/login";
     }
 }

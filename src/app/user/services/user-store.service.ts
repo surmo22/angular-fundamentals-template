@@ -1,19 +1,46 @@
 import { Injectable } from '@angular/core';
+import {BehaviorSubject, Observable} from "rxjs";
+import {UserService} from "@app/user/services/user.service";
+import {SessionStorageService} from "@app/auth/services/session-storage.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserStoreService {
 
+    private isAdmin$$ = new BehaviorSubject<boolean>(false);
+    private name$$ = new BehaviorSubject<string>('');
+
+    public isAdmin$: Observable<boolean> = this.isAdmin$$.asObservable();
+    public name$: Observable<string> = this.name$$.asObservable();
+
+    constructor(
+        private userService: UserService,
+        private sessionStorageService: SessionStorageService
+    ) {}
+
     getUser() {
-        // Add your code here
+        if(this.sessionStorageService.getToken()){
+            this.userService.getUser().subscribe((response) => {
+                this.isAdmin = response.result.role === 'admin';
+                this.name = response.result.name!;
+            });
+        }
     }
 
     get isAdmin() {
-        // Add your code here. Get isAdmin$$ value
+        return this.isAdmin$$.getValue();
     }
 
     set isAdmin(value: boolean) {
-        // Add your code here. Change isAdmin$$ value
+        this.isAdmin$$.next(value);
+    }
+
+    get name(){
+        return this.name$$.getValue();
+    }
+
+    set name(value: string){
+        this.name$$.next(value);
     }
 }

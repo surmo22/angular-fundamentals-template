@@ -31,4 +31,16 @@
       margin-top: 16px;
     }
   }
+
+  &__buttons{
+    display: flex;
+    justify-content: flex-start;
+    gap:10px;
+  }
+
+  &__info-actions{
+    display: flex;
+    gap:10px;
+    justify-content: start;
+  }
 }

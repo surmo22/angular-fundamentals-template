@@ -1,5 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
+import {AuthService} from "@app/auth/services/auth.service";
+import {Router} from "@angular/router";
+import {UserStoreService} from "@app/user/services/user-store.service";
+import {User} from "@shared/models/user.model";
 
 @Component({
   selector: 'app-login-form',
@@ -16,11 +20,36 @@ export class LoginFormComponent {
   emailControl: string = "";
   passwordControl: string = "";
 
+  constructor(private authService: AuthService,
+              private userStoreService: UserStoreService,
+              private router: Router) {
+  }
+
   onSubmit() {
-    if (this.loginForm.valid) {
-      this.loginForm.reset();
+    if (!this.loginForm.valid) {
+      return;
     }
 
-    console.log(this.loginForm.value);
+    const user: User = {
+      email: this.emailControl,
+      password: this.passwordControl,
+    }
+    this.authService.login(user).subscribe(
+        {
+          next: (response) => {
+            if (response.successful) {
+              this.router.navigate(['/courses']).catch(() => {});
+              this.userStoreService.getUser();
+            }
+          },
+          error: () => {
+            this.loginForm.reset();
+          }
+        }
+    )
+  }
+
+  navigateToRegistration() {
+    this.router.navigate(['/registration']);
   }
 }

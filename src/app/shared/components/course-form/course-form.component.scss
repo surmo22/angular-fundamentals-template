@@ -24,6 +24,7 @@
   &__authors {
     margin-top: 8px;
     display: flex;
+    flex-direction: column;
 
     &-item {
       margin-right: 10px;
@@ -33,6 +34,22 @@
   &__icon {
     margin-left: 4px;
     cursor: pointer;
+  }
+}
+
+.btns{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.author{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  &__name{
+    flex: 1;
   }
 }
 

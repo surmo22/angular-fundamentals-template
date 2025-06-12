@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SessionStorageService } from "./services/session-storage.service";
 import { AuthService } from "./services/auth.service";
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ApiBaseUrlInterceptor} from "@app/auth/interceptors/api-base-url-interceptor.service";
 
 @NgModule({
   declarations: [],
@@ -12,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     SessionStorageService,
-    AuthService,
+    AuthService
   ]
 })
 export class AuthModule { }

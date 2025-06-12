@@ -1,42 +1,52 @@
 import { Injectable } from '@angular/core';
+import {Observable} from "rxjs";
+import {ApiResponse} from "@shared/models/api-response";
+import {Course} from "@shared/models/course.model";
+import {HttpClient} from "@angular/common/http";
+import {Author} from "@shared/models/author.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CoursesService {
-    getAll() {
-        // Add your code here
+    constructor(private http: HttpClient) {}
+    getAll(): Observable<ApiResponse<Course[]>> {
+        return this.http.get<ApiResponse<Course[]>>("/courses/all");
     }
 
-    createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
+    createCourse(course: Course): Observable<ApiResponse<Course>> { // replace 'any' with the required interface
+        return this.http.post<ApiResponse<Course>>("/courses/add", course)
     }
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
+    editCourse(id: string, course: Course): Observable<ApiResponse<Course>> { // replace 'any' with the required interface
+        return this.http.put<ApiResponse<Course>>(`/courses/${id}`, course)
     }
 
-    getCourse(id: string) {
-        // Add your code here
+    getCourse(id: string): Observable<ApiResponse<Course>> {
+        return this.http.get<ApiResponse<Course>>(`/courses/${id}`);
     }
 
-    deleteCourse(id: string) {
-        // Add your code here
+    deleteCourse(id: string) : Observable<ApiResponse<string>> {
+        return this.http.delete<ApiResponse<string>>(`/courses/${id}`);
     }
 
-    filterCourses(value: string) {
-        // Add your code here
+    filterCourses(value: string): Observable<ApiResponse<Course[]>> {
+        return this.http.get<ApiResponse<Course[]>>(`/courses/filter`, {
+            params: {
+                title: value
+            }
+        });
     }
 
-    getAllAuthors() {
-        // Add your code here
+    getAllAuthors() : Observable<ApiResponse<Author[]>> {
+        return this.http.get<ApiResponse<Author[]>>("/authors/all");
     }
 
-    createAuthor(name: string) {
-        // Add your code here
+    createAuthor(name: string): Observable<ApiResponse<Author>> {
+        return this.http.post<ApiResponse<Author>>("/authors/add", {name});
     }
 
-    getAuthorById(id: string) {
-        // Add your code here
+    getAuthorById(id: string): Observable<ApiResponse<Author>> {
+        return this.http.get<ApiResponse<Author>>(`/authors/${id}`);
     }
 }

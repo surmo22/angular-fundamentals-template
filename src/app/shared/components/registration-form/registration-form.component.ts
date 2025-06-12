@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from "@angular/router";
+import {AuthService} from "@app/auth/services/auth.service";
 
 @Component({
   selector: 'app-registration-form',
@@ -14,7 +16,8 @@ export class RegistrationFormComponent {
     password: 'password',
   }
 
-  constructor() {
+  constructor(private router: Router,
+              private authService: AuthService) {
     this.buildForm();
   }
   // Use the names `name`, `email`, `password` for the form controls.
@@ -40,7 +43,17 @@ export class RegistrationFormComponent {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      this.registrationForm.reset();
+      this.authService.register(this.registrationForm.value).subscribe({
+        next: (response) => {
+          if (response.successful) {
+            this.navigateToLogin();
+          }
+        }
+      })
     }
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }

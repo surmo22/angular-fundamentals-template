@@ -71,7 +71,7 @@
 
                             <div *ngFor="let auth of getAuthors().controls; index as i" [formGroupName]="i" class="authors">
                                 <div class="author">
-                                    <div>{{auth.value.name}}</div>
+                                    <div class="author__name">{{auth.value.name}}</div>
                                     <div class="btns">
                                         <app-button [iconName]="'plus'" (buttonClick)="addToCourseAuthors(i)"></app-button>
                                         <app-button [iconName]="'trash-can'" (buttonClick)="deleteAuthor(i)"></app-button>
@@ -92,7 +92,7 @@
 
                         <div *ngFor="let auth of getCourseAuthors().controls; index as i" [formGroupName]="i" class="course-authors">
                             <div class="course-author">
-                                <div class="author-name">{{auth.value.author}}</div>
+                                <div class="author-name">{{auth.value.name}}</div>
                                 <app-button [iconName]="'trash-can'" (buttonClick)="removeFromCourseAuthors(i)"></app-button>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
 </form>
 <div class="form__action">
     <div class="buttons">
-        <app-button [buttonText]="'cancel'"></app-button>
+        <app-button [buttonText]="'cancel'" routerLink="/courses"></app-button>
         <app-button type="submit" (buttonClick)="submit()" [buttonText]="'create course'"></app-button>
     </div>
 </div>

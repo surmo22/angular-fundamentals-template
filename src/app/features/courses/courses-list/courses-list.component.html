@@ -11,12 +11,10 @@
 
             <ng-container *ngIf="editable">
                 <app-button
-                        buttonText="Edit"
                         iconName="edit"
                         (click)="onEditCourse(course.id)">
                 </app-button>
                 <app-button
-                        buttonText="Delete"
                         iconName="trash"
                         (click)="onDeleteCourse(course.id)">
                 </app-button>
