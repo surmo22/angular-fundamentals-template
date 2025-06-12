@@ -11,7 +11,6 @@ import { CoursesService } from '@app/services/courses.service';
 import { CoursesModule } from "@features/courses/courses.module";
 import {PasswordToggleDirective} from "@shared/directives/password.directive";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {ApiBaseUrlInterceptor} from "@app/auth/interceptors/api-base-url-interceptor.service";
 import {TokenInterceptor} from "@app/auth/interceptors/token.interceptor";
 import {RouterLink, RouterModule} from "@angular/router";
 import {AppRoutingModule} from "@app/app-routing.module";
@@ -29,11 +28,6 @@ import {AppRoutingModule} from "@app/app-routing.module";
     RouterLink
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiBaseUrlInterceptor,
-      multi: true
-    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
