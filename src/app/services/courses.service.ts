@@ -10,7 +10,7 @@ import {environment} from "../../environments/environment";
     providedIn: 'root'
 })
 export class CoursesService {
-    private apiUrl = `${environment.apiBaseUrl}/courses`;
+    private apiUrl = `${environment.apiBaseUrl}`;
     constructor(private http: HttpClient) {}
     getAll(): Observable<ApiResponse<Course[]>> {
         return this.http.get<ApiResponse<Course[]>>(`${this.apiUrl}/courses/all`);
