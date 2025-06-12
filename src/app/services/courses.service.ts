@@ -32,12 +32,9 @@ export class CoursesService {
         return this.http.delete<ApiResponse<string>>(`${this.apiUrl}/courses/${id}`);
     }
 
-    filterCourses(value: string): Observable<ApiResponse<Course[]>> {
-        return this.http.get<ApiResponse<Course[]>>(`${this.apiUrl}/courses/filter`, {
-            params: {
-                title: value
-            }
-        });
+    filterCourses(params: { [key: string]: string }): Observable<ApiResponse<Course[]>> {
+        return this.http.get<ApiResponse<Course[]>>(`${this.apiUrl}/courses/filter`, {params}
+        );
     }
 
     getAllAuthors() : Observable<ApiResponse<Author[]>> {
