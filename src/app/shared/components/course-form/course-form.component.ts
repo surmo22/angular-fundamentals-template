@@ -12,6 +12,7 @@ import {CoursesStoreService} from "@app/services/courses-store.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Author} from "@shared/models/author.model";
 import {Course} from "@shared/models/course.model";
+import {CoursesStateFacade} from "@app/store/courses/courses.facade";
 
 @Component({
   selector: "app-course-form",
@@ -22,7 +23,8 @@ export class CourseFormComponent implements OnInit {
   constructor(public fb: FormBuilder, public library: FaIconLibrary,
               private courseStoreService: CoursesStoreService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private courseFacade: CoursesStateFacade) {
     library.addIconPacks(fas);
 
   }
@@ -53,8 +55,8 @@ export class CourseFormComponent implements OnInit {
 
     const courseId = this.route.snapshot.paramMap.get('id');
     if (courseId) {
-      this.courseStoreService.getCourse(courseId);
-      this.courseStoreService.course$.subscribe(course => {
+      this.courseFacade.getSingleCourse(courseId);
+      this.courseFacade.course$.subscribe(course => {
         if (course) {
           this.editCourse = course;
           this.courseForm.patchValue({
@@ -152,22 +154,10 @@ export class CourseFormComponent implements OnInit {
       }
 
       if (this.editCourse){
-        this.courseStoreService.editCourse(this.editCourse.id, submittedCourse).subscribe({
-          next: (response) => {
-            if (response.successful) {
-              this.router.navigate(['/courses']).catch(() => {});
-            }
-          }
-        })
+        this.courseFacade.editCourse(submittedCourse, this.editCourse.id)
       }
       else {
-        this.courseStoreService.createCourse(submittedCourse).subscribe({
-          next: (response) => {
-            if (response.successful) {
-              this.router.navigate(['/courses']).catch(() => {});
-            }
-          }
-        })
+        this.courseFacade.createCourse(submittedCourse)
       }
     }
   }

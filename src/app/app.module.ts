@@ -14,6 +14,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from "@app/auth/interceptors/token.interceptor";
 import {RouterLink, RouterModule} from "@angular/router";
 import {AppRoutingModule} from "@app/app-routing.module";
+import {effects, reducers} from "@app/store";
+import {EffectsModule} from "@ngrx/effects";
+import {StoreModule} from "@ngrx/store";
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
@@ -25,7 +28,9 @@ import {AppRoutingModule} from "@app/app-routing.module";
     FontAwesomeModule,
     CoursesModule,
     PasswordToggleDirective,
-    RouterLink
+    RouterLink,
+      StoreModule.forRoot(reducers),
+      EffectsModule.forRoot(effects),
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService,
     {

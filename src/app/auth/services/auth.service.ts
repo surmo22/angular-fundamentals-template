@@ -4,6 +4,7 @@ import {SessionStorageService} from "@app/auth/services/session-storage.service"
 import {HttpClient} from "@angular/common/http";
 import {ApiResponse} from "@shared/models/api-response";
 import {User} from "@shared/models/user.model";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root',
@@ -21,7 +22,7 @@ export class AuthService {
     }
 
     login(user: User) { // replace 'any' with the required interface
-        return this.http.post<ApiResponse<string>>("/login", user)
+        return this.http.post<ApiResponse<string>>(`${environment.apiBaseUrl}/login`, user)
             .pipe(
                 map((response) => {
                     if (response?.successful && response.result){
@@ -46,7 +47,7 @@ export class AuthService {
     }
 
     register(user: User) { // replace 'any' with the required interface
-        return this.http.post<ApiResponse<string>>("/register", user)
+        return this.http.post<ApiResponse<string>>(`${environment.apiBaseUrl}/register`, user)
             .pipe(map((response)=>{
                 if(response.successful){
                     console.log(response);

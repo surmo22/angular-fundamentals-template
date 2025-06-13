@@ -6,6 +6,7 @@ import {CoursesStoreService} from "@app/services/courses-store.service";
 import {UserStoreService} from "@app/user/services/user-store.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {CoursesStateFacade} from "@app/store/courses/courses.facade";
 
 @Component({
   selector: 'app-courses',
@@ -14,27 +15,24 @@ import {Observable} from "rxjs";
 })
 export class CoursesComponent implements OnInit {
   filterSearch($event: string) {
-    if ($event.trim()) {
-      this.courseService.filterCourses($event).subscribe({
-        error: (error) => {
-          console.error('Error filtering courses:', error);
-        }
-      });
-    } else {
-      this.courseService.getAll();
+    if ($event.trim())
+    {
+      this.coursesFacade.getFilteredCourses($event)
     }
-
+    else
+    {
+      this.coursesFacade.getAllCourses();
+    }
   }
-  courses$: Observable<Course[]> = this.courseService.courses$;
+  courses$: Observable<Course[]> = this.coursesFacade.allCourses$;
   isEditable = true;
 
-  constructor(private courseService: CoursesStoreService,
+  constructor(private coursesFacade: CoursesStateFacade,
               private userStoreService: UserStoreService,
               private router: Router) {}
 
   ngOnInit(): void {
-    this.courseService.getAll();
-    console.log('Courses after initialization:', this.courses$);
+    this.coursesFacade.getAllCourses();
     this.userStoreService.isAdmin$
         .subscribe(isAdmin => { this.isEditable = isAdmin;});
   }
@@ -54,7 +52,7 @@ export class CoursesComponent implements OnInit {
 
   onDeleteCourse(courseId: string): void {
     // Handle delete course action
-    this.courseService.deleteCourse(courseId);
+    this.coursesFacade.deleteCourse(courseId);
     console.log('Delete course:', courseId);
     // Add confirmation dialog and deletion logic here
   }
